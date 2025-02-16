@@ -1,13 +1,18 @@
-from .models import Blog 
+from .models import Comment
 from django import forms
 
-class BlogForm(forms.Form):
-    title = forms.CharField(max_length=100, label='название блога')
-    descritions = forms.CharField(widget =forms.Textarea,label='описание')
-    public = forms.BooleanField()
+class EmailPostForm(forms.Form):
+    name = forms.CharField(max_length=25)
+    email = forms.EmailField()
+    to = forms.EmailField()
+    comments = forms.CharField(required=False,widget=forms.Textarea)
 
-class FeedBlogForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
-        model = Blog 
-        fields = ['title' , 'descriptions', 'public', 'img']
+        model = Comment
+        fields = ['name', 'email', 'body']
+class SearchForm(forms.Form):
+    query = forms.CharField()
+
+
 
